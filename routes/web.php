@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,17 @@ Route::get('/event', function () {
     return view('event');
 })->middleware(['auth', 'verified'])->name('event');
 
-Route::get('/invite', function () {
-    return view('invite.index');
-})->middleware(['auth', 'verified'])->name('invite');
+/////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations');
+
+Route::get('/invitations/create', function () {
+    return view('invitations.create');
+})->middleware(['auth', 'verified'])->name('invitations.create');
+
+Route::post('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
+
+////////////////////////////////////////////////////////////////////////////////////
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
