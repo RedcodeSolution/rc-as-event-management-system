@@ -19,7 +19,9 @@
                     <x-nav-link :href="route('event')" :active="request()->routeIs('event')">
                        {{ __('Event') }}
                     </x-nav-link>
+
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->
