@@ -4,12 +4,21 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/event', function () {
+    return view('event');
+})->middleware(['auth', 'verified'])->name('event');
+
+Route::get('/invite', function () {
+    return view('invite.index');
+})->middleware(['auth', 'verified'])->name('invite');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
