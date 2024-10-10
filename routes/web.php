@@ -34,6 +34,9 @@ Route::get('/event/create', function () {
     return view('event.create');
 })->middleware(['auth', 'verified'])->name('event.create');
 
+Route::get('/event/{id}', [PetController::class, 'show'])->name('event.show');
+
+
 
 
 require __DIR__.'/auth.php';

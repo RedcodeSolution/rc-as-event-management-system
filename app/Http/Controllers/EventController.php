@@ -69,24 +69,21 @@ class EventController extends Controller
 
 
 
-        public function index(Request $request) :view
-            {
-                $events = Event::latest()->paginate(3);
-                return view('event.index', [
-                    'event' => $events,
-                ]);
+        public function index()
+           {
 
-            }
+               $events = Event::Paginate(3);
 
-//          public function show(Request $request) :view
-//             {
-//                 $events = Event::latest()->paginate(3);
-//                 return view('event.index', [
-//                     'event' => $events,
-//                 ]);
-//             }
+               return view('event.index', compact('events'));
+           }
 
+           public function show($id)
+             {
+         $events = Event::find($id);
+         //        dd($pet);
 
+                 return view('event.show', ['event' => $events]);
+             }
 
 
         public function edit(Request $request): View

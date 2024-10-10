@@ -8,7 +8,7 @@
                     <form action="{{ route('event.create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <!-- Event ID, User ID, Title -->
+
                         <div class="mb-4 flex space-x-4">
 
 

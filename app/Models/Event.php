@@ -11,6 +11,10 @@ class Event extends Model
 
     protected $table = 'events';
 
+     protected $fillable = ['user_id', 'title','event_name','description','start_date','end_date','start_time','location','organizer_name','organizer_email','organizer_phone', 'is_active',
+
+        ];
+
     protected $guarded = [];
 
 }
