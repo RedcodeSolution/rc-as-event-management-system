@@ -21,32 +21,25 @@
                             </div>
 
                             <div class="flex-1">
-                                <label for="title" class="block text-gray-700">Title:</label>
-                                <input type="text" id="title" name="title" class="w-full px-4 py-2 border rounded-md @error('title') border-red-500 @enderror" value="{{ old('title') }}" />
-                                @error('title')
-                                <span class="text-red text-sm" style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
+                                 <label for="event_name" class="block text-gray-700">Event Name:</label>
+                                     <input type="text" id="event_name" name="event_name" class="w-full px-4 py-2 border rounded-md @error('event_name') border-red-500 @enderror" value="{{ old('event_name') }}" />
+                                      @error('event_name')
+                                     <span class="text-red text-sm" style="color: red">{{ $message }}</span>
+                                     @enderror
+                                  </div>
+
+                                  <div class="flex-1">
+                                      <label for="location" class="block text-gray-700">Location:</label>
+                                       <input type="text" id="location" name="location" class="w-full px-4 py-2 border rounded-md @error('location') border-red-500 @enderror" value="{{ old('location') }}" />
+                                        @error('location')
+                                     <span class="text-red text-sm" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                      </div>
+
+
                         </div>
 
-                        <!-- Event Name, Location -->
-                        <div class="mb-4 flex space-x-4">
-                            <div class="flex-1">
-                                <label for="event_name" class="block text-gray-700">Event Name:</label>
-                                <input type="text" id="event_name" name="event_name" class="w-full px-4 py-2 border rounded-md @error('event_name') border-red-500 @enderror" value="{{ old('event_name') }}" />
-                                @error('event_name')
-                                <span class="text-red text-sm" style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
 
-                            <div class="flex-1">
-                                <label for="location" class="block text-gray-700">Location:</label>
-                                <input type="text" id="location" name="location" class="w-full px-4 py-2 border rounded-md @error('location') border-red-500 @enderror" value="{{ old('location') }}" />
-                                @error('location')
-                                <span class="text-red text-sm" style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <!-- Start Date, End Date, Start Time -->
                         <div class="mb-4 flex space-x-4">
@@ -75,6 +68,17 @@
                             </div>
                         </div>
 
+                        <div class="mb-4">
+                         <label for="is_adopted" class="block text-gray-700">Status:</label>
+                             <select id="is_active" name="is_active" class="w-80 px-4 py-2 border rounded-md @error('is_active') border-red-500 @enderror">
+                                   <option value="0" {{ old('is_adopted') == 0 ? 'selected' : '' }}>No</option>
+                                    <option value="1" {{ old('is_adopted') == 1 ? 'selected' : '' }}>Yes</option>
+                             </select>
+                             @error('is_active')
+                                <span class="text-red text-sm" style="color: red">{{ $message }}</span>
+                                @enderror
+                         </div>
+
                         <!-- Description -->
                         <div class="mb-4">
                             <label for="description" class="block text-gray-700">Description:</label>
@@ -90,13 +94,6 @@
                                 Save
                             </button>
 
-                            <button type="submit" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2">
-                                Update
-                            </button>
-
-                            <button type="submit" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
-                                Delete
-                            </button>
                         </div>
 
                     </form>

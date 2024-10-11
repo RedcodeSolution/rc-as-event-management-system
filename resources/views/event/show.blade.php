@@ -4,19 +4,20 @@
             <a class="text-black px-4 py-2 rounded">
                 Event
             </a>
-            <a href="{{ route('events.edit', $event->id) }}">
+            <a href="{{ route('event.edit', $event->id) }}">
                 <button type="button"
-                        class="dark:bg-black text-black px-4 py-2 rounded-md bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        class="dark:bg-black text-black px-6 py-3 rounded-md bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Change/Add Event
                 </button>
             </a>
         </div>
     </x-slot>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full min-h-screen">
+    <!-- Single wrapper div with more padding and space -->
+    <div class="overflow-y-auto h-96 w-full p-6 mt-10 ">
 
-        <!-- Event Details -->
-        <div class="grid grid-cols-2 gap-4 mb-8">
+        <!-- Event Details and Status with increased grid gap and margin -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
             <div>
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Event Name:</h2>
                 <p class="text-gray-600 dark:text-gray-400">{{ $event->event_name }}</p>
@@ -27,48 +28,43 @@
             </div>
             <div>
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Start Date:</h2>
-                <p class="text-gray-600 dark:text-gray-400">{{ $event->start_date }}</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($event->start_date)->format('Y-m-d') }}</p>
             </div>
             <div>
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">End Date:</h2>
-                <p class="text-gray-600 dark:text-gray-400">{{ $event->end_date }}</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($event->end_date)->format('Y-m-d') }}</p>
             </div>
             <div>
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Start Time:</h2>
-                <p class="text-gray-600 dark:text-gray-400">{{ $event->start_time }}</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($event->start_time)->format('H:i') }}</p>
+            </div>
+
+            <!-- Event Status with margin-top -->
+            <div class="mt-4">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Event Status:</h2>
+                <span class="inline-block px-4 py-2 mt-2 text-sm font-medium {{ $event->is_active ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white' }} rounded-full">
+                    {{ $event->is_active ? 'Active' : 'Inactive' }}
+                </span>
             </div>
         </div>
 
-        <!-- Event Status -->
-        <div class="mb-8">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Event Status:</h2>
-            <span class="inline-block px-4 py-2 mt-2 text-sm font-medium {{ $event->is_active ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white' }} rounded-full">
-                {{ $event->is_active ? 'Active' : 'Inactive' }}
-            </span>
+        <!-- Description with margin-bottom -->
+        <div class="mb-4">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Description:</h2>
+            <p class="text-gray-600 dark:text-gray-400">{{ $event->description }}</p>
         </div>
+
 
     </div>
 
-    <!-- Right Column: Event Description -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden h-full">
-        <div class="w-full md:w-1/3 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 h-full">
-
-            <!-- Event Description -->
-            <div class="mb-8">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Description:</h2>
-                <p class="text-gray-600 dark:text-gray-400">{{ $event->description }}</p>
-            </div>
-
-            <!-- Event Organizer Info -->
-            <div class="mt-8">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Organizer Info:</h2>
-                <div class="mt-4 space-y-2">
-                    <p class="text-gray-700 dark:text-gray-400"><span class="font-semibold">Organizer:</span> {{ $event->organizer_name }}</p>
-                    <p class="text-gray-700 dark:text-gray-400"><span class="font-semibold">Email:</span> {{ $event->organizer_email }}</p>
-                    <p class="text-gray-700 dark:text-gray-400"><span class="font-semibold">Phone:</span> {{ $event->organizer_phone }}</p>
-                </div>
-            </div>
-
+    <form>
+        @csrf
+        <div class="flex justify-end">
+            <button type="submit" class="rounded-md bg-black mr-60  px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+                Invitation
+            </button>
         </div>
-    </div>
+    </form>
+
+
 </x-app-layout>

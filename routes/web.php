@@ -8,10 +8,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Route::get('/event', function () {
-//     return view('event');
-// })->middleware(['auth', 'verified'])->name('event');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -34,7 +30,13 @@ Route::get('/event/create', function () {
     return view('event.create');
 })->middleware(['auth', 'verified'])->name('event.create');
 
-Route::get('/event/{id}', [PetController::class, 'show'])->name('event.show');
+Route::get('/events/{id}', [EventController::class, 'show'])->name('event.show');
+
+Route::get('/event/{id}/edit', [EventController::class, 'edit'])->middleware(['auth', 'verified'])->name('event.edit');
+
+Route::patch('/event/{id}', [EventController::class, 'update'])->name('event.update');
+
+Route::delete('/event/{id}', [EventController::class, 'destroy'])->middleware(['auth', 'verified'])->name('event.destroy');
 
 
 

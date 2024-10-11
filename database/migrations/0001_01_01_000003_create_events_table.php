@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('title');
             $table->string('event_name');
             $table->text('description')->nullable();
             $table->string('location');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }
