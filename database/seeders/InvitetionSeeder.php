@@ -14,7 +14,7 @@ class InvitetionSeeder extends Seeder
      */
     public function run()
     {
-        Invitation::factory()->count(10)->create();
+        Invitation::factory()->count(3)->create();
 
     }
 }

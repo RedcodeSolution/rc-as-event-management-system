@@ -12,6 +12,12 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -45,4 +51,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    
 }

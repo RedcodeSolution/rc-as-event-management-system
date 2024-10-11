@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->foreignId('event_id')->constrained()->onDelete('cascade');
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->enum('rsvp_status', ['pending', 'accepted', 'declined'])->default('pending');
+        $table->string('rsvp_status')->default('pending');
         $table->timestamps();
     });
 }

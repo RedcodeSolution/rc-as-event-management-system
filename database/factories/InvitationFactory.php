@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Events;
+use App\Models\Event;
 use App\Models\invitation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,7 +20,7 @@ class InvitationFactory extends Factory
     public function definition(): array
     {
         return [
-            'event_id' => Events::factory(),
+            'event_id' => Event::factory(),
             'user_id' => User::factory(),
             'rsvp_status' => 'pending'
         ];

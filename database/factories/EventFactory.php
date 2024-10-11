@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Events;
+use App\Models\Event;
 use App\Models\invitation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\events>
  */
-class EventsFactory extends Factory
+class EventFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    protected $model = Events::class;
+    protected $model = Event::class;
 
 
     public function definition(): array

@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Events extends Model
+class Event extends Model
 {
-    /** @use HasFactory<\Database\Factories\EventsFactory> */
     use HasFactory;
 
     protected $guarded = [];
+
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
 }
