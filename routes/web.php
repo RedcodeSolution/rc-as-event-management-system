@@ -31,6 +31,8 @@ Route::get('/invitations/{invitation}', [InvitationController::class, 'show']);
 Route::post('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
 
 Route::get('/invitations/rsvp-lists/list', [InvitationController::class, 'rsvpLists'])->name('invitations.rsvp');
+Route::get('/invitations/{id}/attend', [InvitationController::class, 'attend'])->name('invitations.attend');
+Route::put('/invitations/{id}', [InvitationController::class, 'update'])->name('invitations.update');
 
 
 ////////////////////////////////////////////////////////////////////////////////////

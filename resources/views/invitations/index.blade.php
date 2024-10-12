@@ -44,9 +44,7 @@
         {{ $invitations->links() }}
     </div>
 </div>
-
-
-    </div>
+</div>
 
 
 

@@ -26,25 +26,28 @@ class InvitationController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'event_id' => 'required|exists:events,id', 
-            'user_id' => 'required|exists:users,id',   
-        ]);
+{
+    $request->validate([
+        'event_id' => 'required|exists:events,id',
+        'user_id' => 'required|exists:users,id',
+    ]);
 
-        $event = Event::find($request->input('event_id'));
-    
-        $invite = Invitation::create([
-            'event_id' => $request->input('event_id'),
-            'user_id' => $request->input('user_id'),
-            'rsvp_status' => 'pending', 
-        ]);
+   
+    $event = Event::find($request->input('event_id'));
+    $invitation = Invitation::create([
+        'event_id' => $request->input('event_id'),
+        'user_id' => $request->input('user_id'),
+        'rsvp_status' => 'pending',
+    ]);
 
-       Mail::to($invite->user->email)->send(
-       new EventNotificationMail($event, $invite)
-);
-        return redirect()->back()->with('success', 'Invitation sent successfully!');
-    }
+   
+    Mail::to($invitation->user->email)->send(
+        new EventNotificationMail($event, $invitation) 
+    );
+
+    return redirect()->back()->with('success', 'Invitation sent successfully!');
+}
+
 
 
     public function rsvpLists()
@@ -55,4 +58,26 @@ class InvitationController extends Controller
 
         return view('invitations.rsvp', compact('pendingInvitations', 'acceptedInvitations', 'declinedInvitations'));
     } 
+
+
+    public function attend($id)
+    {
+        $invitation = Invitation::findOrFail($id);
+        $event = $invitation->event;
+        $invitedUser = $invitation->user;
+    
+        return view('invitations.attend', compact('invitation', 'event', 'invitedUser'));
+    }
+    
+
+
+    public function update(Request $request, $id)
+{
+    $invitation = Invitation::find($id);
+    $invitation->rsvp_status = $request->input('attending') == 1 ? 'accepted' : 'declined';
+    $invitation->save();
+
+    }
+
+
 }

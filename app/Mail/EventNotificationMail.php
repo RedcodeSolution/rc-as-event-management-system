@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Mail;
-
+use App\Models\Event;
+use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -13,23 +14,13 @@ class EventNotificationMail extends Mailable
     use Queueable, SerializesModels;
 
     public $event;
-    public $invitedUser;
+    public $invitation;
 
-    public function __construct($event, $invitedUser)
-{
-    $this->event = $event;
-    $this->invitedUser = $invitedUser;
-}
-
-public function build()
-{
-    return $this->subject('You are invited to ' . $this->event->title)
-                ->view('emails.invitation')
-                ->with([
-                    'event' => $this->event,
-                    'invitedUser' => $this->invitedUser,
-                ]);
-}
+    public function __construct(Event $event, Invitation $invitation)
+    {
+        $this->event = $event;
+        $this->invitation = $invitation; // Make sure to assign this
+    }
 
     public function envelope(): Envelope
     {
