@@ -2,19 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\EventRepositoryInterface;  // Use the interface instead of the concrete repository
 use Illuminate\Http\Request;
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
-use App\Models\Event;
 
 class EventController extends Controller
 {
+    protected $eventRepository;
+
+    public function __construct(EventRepositoryInterface $eventRepository)
+    {
+        $this->eventRepository = $eventRepository;
+    }
+
+    public function index()
+    {
+        $events = $this->eventRepository->getAllEvents();
+        return view('event.index', compact('events'));
+    }
+
+    public function show($id)
+    {
+        $event = $this->eventRepository->getEventById($id);
+        return view('event.show', compact('event'));
+    }
+
     public function save(Request $request)
     {
-        // Validate part pet
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'event_name' => 'required|string|max:255',
@@ -26,113 +39,38 @@ class EventController extends Controller
             'is_active' => 'required|boolean',
         ]);
 
-        // Check if required inputs exist and are not empty
-        $inputValues = [
+        $data = $request->all();
+        $this->eventRepository->create($data);
 
-            'user_id' => $request->input('user_id'),
-            'event_name' => $request->input('event_name'),
-            'description' => $request->input('description'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-            'start_time' => $request->input('start_time'),
-            'location' => $request->input('location'),
-            'is_active' => $request->input('is_active'),
-        ];
-
-
-
-        // Create new event
-        $event = new Event();
-        $event->user_id = $request->input('user_id');
-        $event->event_name = $request->input('event_name');
-        $event->description = $request->input('description');
-        $event->start_date = $request->input('start_date');
-        $event->end_date = $request->input('end_date');
-        $event->start_time = $request->input('start_time');
-        $event->location = $request->input('location');
-        $event->is_active = $request->input('is_active');
-
-//          dd($event);
-
-
-        // Save event
-        if ($event->save()) {
-           return redirect()->route('event')->with('message', 'Event added successfully!');
-        } else {
-            return response()->json(["error" => "Failed to create event."], 500);
-        }
-
-
-
+        return redirect()->route('event.index')->with('message', 'Event added successfully!');
     }
 
-        public function index()
-           {
+    public function edit($id)
+    {
+        $event = $this->eventRepository->getEventById($id);
+        return view('event.edit', compact('event'));
+    }
 
-               $events = Event::latest()->simplePaginate(3);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'event_name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'description' => 'nullable|string',
+            'is_active' => 'required|boolean',
+        ]);
 
-               return view('event.index', compact('events'));
-           }
+        $data = $request->all();
+        $this->eventRepository->update($id, $data);
 
-           public function show($id)
-           {
-               $event = Event::findOrFail($id);
-               return view('event.show', compact('event'));
-           }
+        return redirect()->route('event.show', $id)->with('message', 'Event updated successfully!');
+    }
 
-
-       public function edit($id)
-          {
-              $events = Event::find($id);
-              return view('event.edit', ['event' => $events]);
-          }
-
-      public function update(Request $request, $id)
-      {
-          // Validate the incoming request data
-          $request->validate([
-              'event_name' => 'required|string|max:255',
-              'location' => 'required|string|max:255',
-              'start_date' => 'required|date',
-              'end_date' => 'required|date|after_or_equal:start_date',
-              'description' => 'nullable|string',
-              'is_active' => 'required|boolean',
-
-          ]);
-
-
-        $event = Event::findOrFail($id);
-
-          if (!$event) {
-              return redirect()->route('event.index')->with('error', 'Event not found!');
-          }
-
-          // Update the event attributes
-          $event->event_name = $request->input('event_name');
-          $event->location = $request->input('location');
-          $event->start_date = $request->input('start_date');
-          $event->end_date = $request->input('end_date');
-          $event->start_time = $request->input('start_time');
-          $event->description = $request->input('description');
-          $event->is_active = $request->input('is_active');
-
-
-          // Save the updated event
-          $event->save();
-
-          return redirect()->route('event.show', $event->id)->with('message', 'Event updated successfully!');
-      }
-
-
-       public function destroy($id)
-           {
-               $event = Event::findOrFail($id);
-              $delete = $event->delete();
-
-               if ($delete) {
-                   return redirect()->route('event')->with('message', 'Event delete successfully!');
-               }else{
-                   echo "not";
-             }
-       }
+    public function destroy($id)
+    {
+        $this->eventRepository->delete($id);
+        return redirect()->route('event.index')->with('message', 'Event deleted successfully!');
+    }
 }
