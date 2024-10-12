@@ -24,15 +24,15 @@ class EventFactory extends Factory
     {
 
         return [
-            'user_id' => $this->faker->randomNumber(), // or use $this->faker->uuid for unique ids
-            'event_name' => $this->faker->word,
-            'description' => $this->faker->paragraph,
+            'user_id' => $this->faker->name,
+            'event_name' => $this->faker->sentence(3),
             'location' => $this->faker->address,
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
+            'start_date' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'end_date' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
             'start_time' => $this->faker->time(),
-            'is_active' => $this->faker->boolean(),
-        ];
+            'description' => $this->faker->paragraph,
+            'is_active' => $this->faker->boolean,
 
+        ];
     }
 }

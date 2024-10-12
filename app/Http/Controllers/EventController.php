@@ -17,13 +17,12 @@ class EventController extends Controller
         // Validate part pet
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'title' => 'required|string|max:255',
             'event_name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'location' => 'required|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_time' => 'nullable|date_format:H:i',
-            'location' => 'required|string|max:255',
             'is_active' => 'required|boolean',
         ]);
 
@@ -31,7 +30,6 @@ class EventController extends Controller
         $inputValues = [
 
             'user_id' => $request->input('user_id'),
-            'title' => $request->input('title'),
             'event_name' => $request->input('event_name'),
             'description' => $request->input('description'),
             'start_date' => $request->input('start_date'),
@@ -41,11 +39,7 @@ class EventController extends Controller
             'is_active' => $request->input('is_active'),
         ];
 
-        foreach ($inputValues as $key => $value) {
-            if (is_null($value) || $value === '') {
-                return response()->json(["error" => "$key is required."], 400);
-            }
-        }
+
 
         // Create new event
         $event = new Event();
@@ -58,8 +52,7 @@ class EventController extends Controller
         $event->location = $request->input('location');
         $event->is_active = $request->input('is_active');
 
-        $event->save();
-
+//          dd($event);
 
 
         // Save event
@@ -70,12 +63,13 @@ class EventController extends Controller
         }
 
 
+
     }
 
         public function index()
            {
 
-               $events = Event::Paginate(3);
+               $events = Event::latest()->simplePaginate(3);
 
                return view('event.index', compact('events'));
            }
@@ -101,7 +95,6 @@ class EventController extends Controller
               'location' => 'required|string|max:255',
               'start_date' => 'required|date',
               'end_date' => 'required|date|after_or_equal:start_date',
-              'start_time' => 'required|date_format:H:i',
               'description' => 'nullable|string',
               'is_active' => 'required|boolean',
 

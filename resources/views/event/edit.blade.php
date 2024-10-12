@@ -148,7 +148,9 @@
                                Update
                           </button>
 
-                      <!-- Delete Button styled to match Update Button -->
+
+                  </form>
+                        <!-- Delete Button styled to match Update Button -->
                         <form action="{{ route('event.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');">
                           @csrf
                            @method('DELETE')
@@ -156,8 +158,6 @@
                                Delete Event
                            </button>
                         </form>
-                  </form>
-
 
                 </div>
             </div>
