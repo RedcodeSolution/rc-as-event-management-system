@@ -2,7 +2,7 @@
 <p>You have been invited to attend the following event:</p>
 <h3>Event Details:</h3>
 <p><strong>Title:</strong> {{ $event->title }}</p>
-<p><strong>Date:</strong> {{ $event->date }}</p>
+<p><strong>Date:</strong> {{ $event->start_date }}</p>
 <p><strong>Location:</strong> {{ $event->location }}</p>
 <p><strong>Description:</strong> {{ $event->description }}</p>
 <h3>Your RSVP Status: {{ $invitation->rsvp_status }}</h3>
