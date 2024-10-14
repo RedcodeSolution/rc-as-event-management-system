@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
@@ -8,10 +9,31 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations');
+Route::get('/invitations/create', [InvitationController::class, 'create'])
+    ->middleware(['auth', 'verified']) // Adjust as needed
+    ->name('invitations.create');
+
+Route::post('/invitations', [InvitationController::class, 'store'])->name('invitations.store');
+Route::get('/invitations/{invitation}', [InvitationController::class, 'show']);
+
+
+Route::post('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
+
+Route::get('/invitations/rsvp-lists/list', [InvitationController::class, 'rsvpLists'])->name('invitations.rsvp');
+Route::get('/invitations/{id}/attend', [InvitationController::class, 'attend'])->name('invitations.attend');
+Route::put('/invitations/{id}', [InvitationController::class, 'update'])->name('invitations.update');
+
+
+////////////////////////////////////////////////////////////////////////////////////
 
 
 Route::middleware('auth')->group(function () {

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Event;
+use App\Models\Invitation;
 use Illuminate\Database\Seeder;
 
-class EventSeeder extends Seeder
+class InvitetionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,7 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-        Event::factory(5)->create();
+        Invitation::factory()->count(3)->create();
 
     }
 }
-

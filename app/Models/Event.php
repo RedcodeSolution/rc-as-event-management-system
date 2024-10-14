@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
-
+  
     protected $table = 'events';
 
     protected $guarded = [];
@@ -16,7 +16,6 @@ class Event extends Model
      protected $fillable = ['user_id','event_name','description','location','start_date','end_date','start_time','is_active',
 
         ];
-
 
 
 }
