@@ -19,7 +19,7 @@ class EventNotificationMail extends Mailable
     public function __construct(Event $event, Invitation $invitation)
     {
         $this->event = $event;
-        $this->invitation = $invitation; // Make sure to assign this
+        $this->invitation = $invitation; 
     }
 
     public function envelope(): Envelope
