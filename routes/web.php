@@ -23,7 +23,7 @@ Route::get('/invitations/create', [InvitationController::class, 'create'])
     ->name('invitations.create');
 
 Route::post('/invitations', [InvitationController::class, 'store'])->name('invitations.store');
-Route::get('/invitations/{invitation}', [InvitationController::class, 'show']);
+//Route::get('/invitations/{invitation}', [InvitationController::class, 'show']);
 
 
 Route::post('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');

@@ -27,9 +27,9 @@
         <div class="space-y-4">
     <div class="space-y-4">
     @foreach ($invitations as $invitation)
-        <a href="/invitations/{{ $invitation['id'] }}" class="block px-4 py-6 mx-10 my-2 border bg-slate-50 border-gray-200 rounded-lg">
+        <a href="" class="block px-4 py-6 mx-10 my-2 border bg-slate-50 border-gray-200 rounded-lg">
             <div class="font-bold text-blue-500 text-lg">
-                Event: {{ $invitation->event->title }}
+                Event: {{ $invitation->event->event_name }}
             </div>
             <div class="text-gray-600 text-lg">
                 Invited User: {{ $invitation->user->name }}

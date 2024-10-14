@@ -17,7 +17,7 @@
                 <select name="event_id" id="event_id" required class="mt-1 block w-full p-2 border border-gray-300 rounded">
                     <option value="">Select event name</option>
                     @foreach($events as $event)
-                        <option value="{{ $event->id }}">{{ $event->title }}</option>
+                        <option value="{{ $event->id }}">{{ $event->event_name }}</option>
                     @endforeach
                 </select>
             </div>

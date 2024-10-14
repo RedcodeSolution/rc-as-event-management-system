@@ -20,7 +20,7 @@
                     <!-- Wrap all cards in the grid container -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6"> <!-- Adjusted gap and padding -->
                         @foreach ($events as $event) <!-- Updated variable name -->
-                            <a href="/events/{{ $event->id }}" class="block p-6 border border-gray-200 rounded-lg hover:bg-gray-100 dark:border-gray-700">
+                            <a href="/events/{{ $event->id }}" class="block p-6 border border-gray-200 rounded-lg bg-gray-100 ">
                                 <div>
                                     <strong>{{ $event->event_name }}:</strong>
                                     Located at {{ $event->location }} on {{ $event->start_date }}.

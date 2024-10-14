@@ -1,7 +1,7 @@
 <h2>Hello {{ $invitation->user->name }},</h2>
 <p>You have been invited to attend the following event:</p>
 <h3>Event Details:</h3>
-<p><strong>Title:</strong> {{ $event->title }}</p>
+<p><strong>Title:</strong> {{ $event->event_name }}</p>
 <p><strong>Date:</strong> {{ $event->start_date }}</p>
 <p><strong>Location:</strong> {{ $event->location }}</p>
 <p><strong>Description:</strong> {{ $event->description }}</p>
