@@ -8,6 +8,7 @@
                     </a>
                 </div>
 
+
                 <div class="hidden text-lg space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -18,6 +19,7 @@
                     <x-nav-link :href="route('invitations')" :active="request()->routeIs('invitations')">
                         {{ __('invitations') }}
                     </x-nav-link>
+
                 </div>
             </div>
 
@@ -109,5 +111,5 @@
                 @endauth
             </div>
         </div>
-    </div>
+ </div>
 </nav>

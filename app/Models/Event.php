@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+  
+    protected $table = 'events';
 
     protected $guarded = [];
 
-    public function invitations()
-    {
-        return $this->hasMany(Invitation::class);
-    }
+     protected $fillable = ['user_id','event_name','description','location','start_date','end_date','start_time','is_active',
+
+        ];
+
+
 }

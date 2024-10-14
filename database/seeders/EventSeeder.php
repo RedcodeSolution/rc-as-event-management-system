@@ -18,3 +18,4 @@ class EventSeeder extends Seeder
 
     }
 }
+

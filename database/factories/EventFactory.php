@@ -3,34 +3,36 @@
 namespace Database\Factories;
 
 use App\Models\Event;
-use App\Models\invitation;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\events>
- */
 class EventFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * The name of the model that is being factory-generated.
      *
-     * @return array<string, mixed>
+     * @var string
      */
     protected $model = Event::class;
 
-
-    public function definition(): array
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
     {
+
         return [
-            'title' => $this->faker->sentence(3),
-            'event_name' => $this->faker->word,
-            'description' => $this->faker->paragraph,
+            'user_id' => $this->faker->name,
+            'event_name' => $this->faker->sentence(3),
             'location' => $this->faker->address,
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
+            'start_date' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'end_date' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
             'start_time' => $this->faker->time(),
-            'end_time' => $this->faker->time(),
+            'description' => $this->faker->paragraph,
+            'is_active' => $this->faker->boolean,
+
         ];
     }
 }
