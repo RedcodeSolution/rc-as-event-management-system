@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\EventRepositoryInterface;  // Use the interface instead of the concrete repository
+use App\Repositories\EventRepositoryInterface;  
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -42,7 +42,7 @@ class EventController extends Controller
         $data = $request->all();
         $this->eventRepository->create($data);
 
-        return redirect()->route('event.index')->with('message', 'Event added successfully!');
+        return redirect()->route('event')->with('message', 'Event added successfully!');
     }
 
     public function edit($id)

@@ -25,11 +25,23 @@ class InvitationController extends Controller
         return view('invitations.index', compact('invitations'));
     }
 
-    public function create()
+    public function create(Request $request)
 {
-    $events = Event::all(); 
+    // $events = Event::all(); 
+    // $users = User::all();
+    // return view('invitations.create', compact('events','users')); 
+
+    $events = Event::all();
     $users = User::all();
-    return view('invitations.create', compact('events','users')); 
+    
+    $selectedEventId = $request->query('event_id'); 
+    $selectedEvent = null;
+    
+    if ($selectedEventId) {
+        $selectedEvent = Event::find($selectedEventId);
+    }
+
+    return view('invitations.create', compact('events', 'users', 'selectedEvent'));
 }
 
 
@@ -37,12 +49,14 @@ class InvitationController extends Controller
     {
         $request->validate([
             'event_id' => 'required|exists:events,id',
-            'user_id' => 'required|exists:users,id',
+            'user_ids' => 'required|array|min:1',
+            'user_ids.*' => 'exists:users,id',
         ]);
+    
+        $data = $request->only(['event_id', 'user_ids']);
+        $this->invitationService->createAndSendInvitation($data);
 
-        $this->invitationService->createAndSendInvitation($request->only('event_id', 'user_id'));
-
-        return redirect()->back()->with('success', 'Invitation sent successfully!');
+        return redirect()->back()->with('success', 'Invitations sent successfully!');
     }
 
     public function attend($id)
@@ -54,9 +68,9 @@ class InvitationController extends Controller
         return view('invitations.attend', compact('invitation', 'event', 'invitedUser'));
     }
 
-    public function rsvpLists()
+    public function rsvpLists($eventId)
     {
-        $rsvpLists = $this->invitationService->getRsvpLists();
+        $rsvpLists = $this->invitationService->getRsvpLists($eventId);
 
         return view('invitations.rsvp', [
             'pendingInvitations' => $rsvpLists['pending'],

@@ -22,14 +22,16 @@ class InvitationService
 
     public function createAndSendInvitation($data)
     {
-        $invitation = $this->invitationRepository->create([
-            'event_id' => $data['event_id'],
-            'user_id' => $data['user_id'],
-            'rsvp_status' => 'pending',
-        ]);
-
-        Mail::to($invitation->user->email)->send(new EventNotificationMail($invitation->event, $invitation));
-        return $invitation;
+        foreach ($data['user_ids'] as $userId) {
+            $invitation = $this->invitationRepository->create([
+                'event_id' => $data['event_id'],
+                'user_id' => $userId,
+                'rsvp_status' => 'pending',
+            ]);
+    
+            Mail::to($invitation->user->email)->send(new EventNotificationMail($invitation->event, $invitation));
+        }
+        return true;
     }
 
     public function getInvitationById($id)
@@ -37,14 +39,15 @@ class InvitationService
         return $this->invitationRepository->findById($id);
     }
     
-    public function getRsvpLists()
+    public function getRsvpLists($eventId)
     {
         return [
-            'pending' => $this->invitationRepository->getByStatus('pending'),
-            'accepted' => $this->invitationRepository->getByStatus('accepted'),
-            'declined' => $this->invitationRepository->getByStatus('declined'),
+            'pending' => $this->invitationRepository->getByStatus($eventId, 'pending'),
+            'accepted' => $this->invitationRepository->getByStatus($eventId ,'accepted'),
+            'declined' => $this->invitationRepository->getByStatus($eventId, 'declined'),
         ];
     }
+
 
     public function updateRsvpStatus($id, $status)
     {

@@ -5,8 +5,16 @@
         </div>
     </x-slot>
 
+    <div class="max-w-4xl mx-auto mt-10 bg-gray-300 p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4">{{ $event->event_name }}</h2>
+        <p><strong>Location:</strong> {{ $event->location }}</p>
+        <p><strong>Date:</strong> {{ \Carbon\Carbon::parse($event->start_date)->format('Y-m-d') }}</p>
+        <p><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($event->start_time)->format('H:i') }}</p>
+        <p><strong>Description:</strong> {{ $event->description }}</p>
+    </div>
+
     <div class="flex justify-center mt-10 bg-gray-100">
-        <div class="container text-center p-6 bg-white rounded shadow-md">
+        <div class="container text-center p-6 bg-white rounded shadow-md mb-12">
             <p class="text-xl font-semibold mb-4">Will you be attending?</p>
             
             <form action="{{ route('invitations.update', $invitation->id) }}" method="POST" class="space-x-2">

@@ -4,12 +4,28 @@
             <a class="text-black px-4 py-2 rounded">
                 Event
             </a>
+            
+            <form>
             <a href="{{ route('event.edit', $event->id) }}">
                 <button type="button"
-                        class="dark:bg-black text-black px-6 py-3 rounded-md bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    Change/Add Event
+                        class="dark:bg-black text-white px-6 py-3 rounded-md bg-indigo-600  text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Edit Event
                 </button>
             </a>
+            <a href="{{ route('invitations.create', ['event_id' => $event->id]) }}">
+                <button type="button"
+                        class="dark:bg-black px-6 py-3 rounded-md bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Send Invitations
+                </button>
+            </a>
+            <a href="{{ route('invitations.rsvp', ['eventId' => $event->id]) }}">
+                <button type="button"
+                        class="dark:bg-black px-6 py-3 rounded-md bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Show RSVP
+                </button>
+            </a>
+
+            </form>
         </div>
     </x-slot>
 
@@ -56,15 +72,6 @@
 
 
     </div>
-
-    <form>
-        @csrf
-        <div class="flex justify-end">
-            <button type="submit" class="rounded-md bg-black mr-60  px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
-                Invitation
-            </button>
-        </div>
-    </form>
 
 
 </x-app-layout>

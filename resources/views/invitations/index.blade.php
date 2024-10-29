@@ -11,12 +11,7 @@
                         Add new Invitations
                     </button>
                 </a>
-                <a href="{{ route('invitations.rsvp') }}">
-                    <button type="button"
-                            class="dark:bg-black px-4 py-2 rounded-md bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Show RSVP
-                    </button>
-                </a>
+                
                 </div>
             </div>
     </x-slot>

@@ -16,9 +16,11 @@
                     <x-nav-link :href="route('event')" :active="request()->routeIs('event')">
                         {{ __('Event') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('invitations')" :active="request()->routeIs('invitations')">
-                        {{ __('invitations') }}
+                     @if (request()->routeIs('invitations.create'))
+                    <x-nav-link :href="route('invitations')" :active="request()->routeIs('invitations.create')">
+                        {{ __('Invitations') }}
                     </x-nav-link>
+                    @endif
 
                 </div>
             </div>

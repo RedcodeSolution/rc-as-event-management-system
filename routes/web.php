@@ -19,16 +19,14 @@ Route::get('/dashboard', function () {
 
 Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations');
 Route::get('/invitations/create', [InvitationController::class, 'create'])
-    ->middleware(['auth', 'verified']) // Adjust as needed
+    ->middleware(['auth', 'verified'])
     ->name('invitations.create');
 
 Route::post('/invitations', [InvitationController::class, 'store'])->name('invitations.store');
-//Route::get('/invitations/{invitation}', [InvitationController::class, 'show']);
-
 
 Route::post('/invitations/create', [InvitationController::class, 'create'])->name('invitations.create');
 
-Route::get('/invitations/rsvp-lists/list', [InvitationController::class, 'rsvpLists'])->name('invitations.rsvp');
+Route::get('/invitations/rsvp-lists/{eventId}', [InvitationController::class, 'rsvpLists'])->name('invitations.rsvp');
 Route::get('/invitations/{id}/attend', [InvitationController::class, 'attend'])->name('invitations.attend');
 Route::put('/invitations/{id}', [InvitationController::class, 'update'])->name('invitations.update');
 

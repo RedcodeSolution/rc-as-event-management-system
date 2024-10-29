@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\UserRegistered;
+use App\Listeners\SendWelcomeEmail;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\InvitationRepositoryInterface;
 use App\Repositories\InvitationRepository;
@@ -30,4 +32,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    protected $listen = [
+        UserRegistered::class => [
+            SendWelcomeEmail::class,
+        ],
+    ];
+    
 }
