@@ -8,9 +8,9 @@
 <h3>Your RSVP Status: {{ $invitation->rsvp_status }}</h3>
 <p>Please click the link below to update your RSVP status:</p>
 <p>
-    <a href="{{ route('invitations.attend', $invitation->id) }}" target="_blank">
-        Confirm Attendance
-    </a>
+<a href="{{ route('login', ['invitation_id' => $invitation->id]) }}">
+    Confirm Attendance
+</a>
 </p>
 <p>We look forward to seeing you at the event!</p>
 <p>Thank you!</p>

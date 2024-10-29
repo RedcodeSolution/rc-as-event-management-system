@@ -22,9 +22,10 @@ class InvitationRepository implements InvitationRepositoryInterface
         return Invitation::findOrFail($id);
     }
 
-    public function getByStatus($status)
+    public function getByStatus($eventId , $status)
     {
-        return Invitation::where('rsvp_status', $status)->with('event')->get();
+        return Invitation::where('event_id', $eventId)
+        ->where('rsvp_status', $status)->with('event')->get();
     }
 
     
